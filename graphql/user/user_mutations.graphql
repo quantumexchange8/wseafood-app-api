@@ -1,0 +1,19 @@
+type Mutation {
+    registerUser(input: RegisterUserInput): UserResponse
+    @field(resolver: "App\\GraphQL\\Mutations\\RegisterUser")
+
+    loginUser(input: LoginUserInput): UserResponse
+    @field(resolver: "App\\GraphQL\\Mutations\\UserLogin")
+}
+
+input RegisterUserInput {
+    first_name: String!
+    last_name: String!
+    email: String!
+    password: String!
+}
+
+input LoginUserInput {
+    email: String!
+    password: String!
+}

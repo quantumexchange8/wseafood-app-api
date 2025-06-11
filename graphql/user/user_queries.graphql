@@ -1,0 +1,19 @@
+type User {
+    id: ID!
+    first_name: String!
+    last_name: String!
+    email: String!
+}
+
+type Query {
+    users: [User!]! @all
+
+    me: User! @guard @auth
+}
+
+type UserResponse {
+    success: Boolean!
+    message: [String!]!
+    token: String
+    user: User
+}
