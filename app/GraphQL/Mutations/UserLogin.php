@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 final readonly class UserLogin
 {
     /** @param  array{}  $args */
-    public function __invoke(null $_, array $args)
+    public function __invoke(null $_, array $args): array
     {
         $validator = Validator::make($args['input'], [
             'email' => ['required', 'email', 'exists:users,email'],

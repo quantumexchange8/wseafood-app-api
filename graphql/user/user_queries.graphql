@@ -1,13 +1,14 @@
 type User {
     id: ID!
-    first_name: String!
-    last_name: String!
+    full_name: String!
     email: String!
+    dial_code: String!
+    phone: String!
+    dob: String!
+    point: String!
 }
 
 type Query {
-    users: [User!]! @all
-
     me: User! @guard @auth
 }
 
