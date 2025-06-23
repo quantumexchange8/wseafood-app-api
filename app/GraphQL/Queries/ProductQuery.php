@@ -2,15 +2,57 @@
 
 namespace App\GraphQL\Queries;
 
+use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Database\Eloquent\Builder;
-use LaravelIdea\Helper\App\Models\_IH_Product_QB;
 
 final readonly class ProductQuery
 {
     /** @param  array{}  $args */
-    public function getProducts(null $_, array $args): _IH_Product_QB|Builder
+    public function getProducts(null $_, array $args): array
     {
-        return Product::with(['category', 'media']);
+        $query = Product::with(['category', 'media']);
+
+        if (!empty($args['category_id'])) {
+            // Check if category exists
+            $categoryExists = Category::where('id', $args['category_id'])->exists();
+
+            if (!$categoryExists) {
+                return [
+                    'success' => false,
+                    'message' => ['Category not found'],
+                    'products' => [],
+                ];
+            }
+
+            $query->where('category_id', $args['category_id']);
+        }
+
+        return [
+            'success' => true,
+            'message' => ['Success fetched products'],
+            'products' => $query->get(),
+        ];
+    }
+
+    /** @param array{} $args
+     */
+    public function getProductDetail(null $_, array $args): array
+    {
+        $product = Product::with(['category', 'media'])
+            ->find($args['product_id']);
+
+        if (!$product) {
+            return [
+                'success' => false,
+                'message' => ['Menu item not found'],
+                'detail' => null,
+            ];
+        }
+
+        return [
+            'success' => true,
+            'message' => ['Success fetched product'],
+            'detail' => $product,
+        ];
     }
 }

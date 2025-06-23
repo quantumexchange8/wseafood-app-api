@@ -1,8 +1,18 @@
 extend type Query {
-    products: [Product!]! @guard @all(builder: "App\\GraphQL\\Queries\\ProductQuery@getProducts")
+    categories: [Category!]! @guard @all
+    products(category_id: ID): ProductsResponse @guard @field(resolver: "App\\GraphQL\\Queries\\ProductQuery@getProducts")
+    product_detail(product_id: ID!): ProductDetailResponse @guard @field(resolver: "App\\GraphQL\\Queries\\ProductQuery@getProductDetail")
 }
 
 type Product {
+    id: ID!
+    name: String
+    price: Float
+    category: Category @belongsTo
+    product_media_url: String
+}
+
+type ProductDetail {
     id: ID!
     name: String
     price: Float
@@ -14,4 +24,16 @@ type Category {
     id: ID!
     name: String
     category_media_url: String
+}
+
+type ProductsResponse {
+    success: Boolean!
+    message: [String!]!
+    products: [Product!]!
+}
+
+type ProductDetailResponse {
+    success: Boolean!
+    message: [String!]!
+    detail: ProductDetail
 }
