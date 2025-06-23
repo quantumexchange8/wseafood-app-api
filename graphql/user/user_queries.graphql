@@ -8,10 +8,6 @@ type User {
     point: String!
 }
 
-type Query {
-    me: User! @guard @auth
-}
-
 type UserResponse {
     success: Boolean!
     message: [String!]!

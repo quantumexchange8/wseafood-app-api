@@ -1,0 +1,13 @@
+type Product {
+    id: ID!
+    name: String
+    price: Float
+    category: Category @belongsTo
+    product_media_url: String
+}
+
+type Category {
+    id: ID!
+    name: String
+    category_media_url: String
+}

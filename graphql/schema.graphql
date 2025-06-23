@@ -1,2 +1,8 @@
 #import user/user_queries.graphql
 #import user/user_mutations.graphql
+#import product/product_queries.graphql
+
+type Query {
+    me: User! @guard @auth
+    products: [Product!]! @all(builder: "App\\GraphQL\\Queries\\ProductQuery@getProducts")
+}
