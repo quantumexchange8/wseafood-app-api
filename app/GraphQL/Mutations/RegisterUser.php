@@ -19,27 +19,22 @@ final readonly class RegisterUser
             'phone' => [
                 'required',
                 function ($attribute, $value, $fail) use ($args) {
-                    $dialCode = $args['input']['dial_code']; // e.g. "+60"
-                    $dialCodeNumeric = preg_replace('/\D/', '', $dialCode); // "60"
-                    $phone = $args['input']['phone'];
+                    $dialCode = $args['input']['dial_code'];
+                    $dialCodeNumeric = preg_replace('/\D/', '', $dialCode);
+                    $phone = $value;
 
-                    // Normalize input phone: remove non-digits
                     $normalizedPhone = preg_replace('/[^0-9]/', '', $phone);
 
-                    // Remove leading '0' if present
                     if (str_starts_with($normalizedPhone, '0')) {
                         $normalizedPhone = substr($normalizedPhone, 1);
                     }
 
-                    // If phone starts with dial code, strip it
                     if (str_starts_with($normalizedPhone, $dialCodeNumeric)) {
                         $normalizedPhone = substr($normalizedPhone, strlen($dialCodeNumeric));
                     }
 
-                    // Final normalized phone_number: dialCode + normalizedPhone
                     $finalPhoneNumber = $dialCode . $normalizedPhone;
 
-                    // Check existence in DB
                     $exists = User::where('phone_number', $finalPhoneNumber)->exists();
 
                     if ($exists) {
