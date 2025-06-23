@@ -16,27 +16,31 @@ final readonly class UserLogin
             'phone' => [
                 'required',
                 function ($attribute, $value, $fail) use ($args) {
-                    $dialCode = preg_replace('/\D/', '', $args['input']['dial_code']); // only digits
-                    $phone = $value;
+                    $dialCode = $args['input']['dial_code']; // e.g. "+60"
+                    $dialCodeNumeric = preg_replace('/\D/', '', $dialCode); // "60"
+                    $phone = $args['input']['phone'];
 
-                    // Normalize input phone
+                    // Normalize input phone: remove non-digits
                     $normalizedPhone = preg_replace('/[^0-9]/', '', $phone);
 
-                    // Remove leading 0 or country code
+                    // Remove leading '0' if present
                     if (str_starts_with($normalizedPhone, '0')) {
                         $normalizedPhone = substr($normalizedPhone, 1);
-                    } elseif (str_starts_with($normalizedPhone, $dialCode)) {
-                        $normalizedPhone = substr($normalizedPhone, strlen($dialCode));
                     }
 
-                    // Final normalized value to check: dialCode + normalizedPhone
-                    $finalPhone = $dialCode . $normalizedPhone;
+                    // If phone starts with dial code, strip it
+                    if (str_starts_with($normalizedPhone, $dialCodeNumeric)) {
+                        $normalizedPhone = substr($normalizedPhone, strlen($dialCodeNumeric));
+                    }
+
+                    // Final normalized phone_number: dialCode + normalizedPhone
+                    $finalPhoneNumber = $dialCode . $normalizedPhone;
 
                     // Check existence in DB
-                    $exists = User::whereRaw("CONCAT(dial_code, REPLACE(REPLACE(REPLACE(phone, '+', ''), ' ', ''), '-', '')) = ?", [$finalPhone])->exists();
+                    $exists = User::where('phone_number', $finalPhoneNumber)->exists();
 
                     if (!$exists) {
-                        $fail('This phone number is not registered.');
+                        $fail("The phone number $finalPhoneNumber has not been registered.");
                     }
                 }
             ],
@@ -52,9 +56,27 @@ final readonly class UserLogin
             ];
         }
 
-        $user = User::where('dial_code', $args['input']['dial_code'])
-            ->where('phone', $args['input']['phone'])
-            ->first();
+        $dialCode = $args['input']['dial_code']; // e.g. "+60"
+        $dialCodeNumeric = preg_replace('/\D/', '', $dialCode); // "60"
+        $phone = $args['input']['phone'];
+
+        // Normalize input phone: remove non-digits
+        $normalizedPhone = preg_replace('/[^0-9]/', '', $phone);
+
+        // Remove leading '0' if present
+        if (str_starts_with($normalizedPhone, '0')) {
+            $normalizedPhone = substr($normalizedPhone, 1);
+        }
+
+        // If phone starts with dial code, strip it
+        if (str_starts_with($normalizedPhone, $dialCodeNumeric)) {
+            $normalizedPhone = substr($normalizedPhone, strlen($dialCodeNumeric));
+        }
+
+        // Final phone number: dial_code + normalizedPhone
+        $finalPhoneNumber = $dialCode . $normalizedPhone;
+
+        $user = User::firstWhere('phone_number', $finalPhoneNumber);
 
         if (!$user) {
             return [
