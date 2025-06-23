@@ -84,7 +84,7 @@ final readonly class RegisterUser
             'full_name' => $args['input']['full_name'],
             'email' => $args['input']['email'],
             'dial_code' => $args['input']['dial_code'],
-            'phone' => $args['input']['phone'],
+            'phone' => $normalizedPhone,
             'phone_number' => $finalPhoneNumber,
             'dob' => $args['input']['dob'],
             'password' => Hash::make($args['input']['password']),
