@@ -17,6 +17,7 @@ input RegisterUserInput {
 }
 
 input LoginUserInput {
-    email: String!
+    dial_code: String!
+    phone: String!
     password: String!
 }

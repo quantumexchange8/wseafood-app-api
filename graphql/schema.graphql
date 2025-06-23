@@ -4,5 +4,12 @@
 
 type Query {
     me: User! @guard @auth
-    products: [Product!]! @all(builder: "App\\GraphQL\\Queries\\ProductQuery@getProducts")
+    country: [Country!]! @all
+}
+
+type Country {
+    id: ID!
+    name: String
+    iso2: String
+    phone_code: String
 }

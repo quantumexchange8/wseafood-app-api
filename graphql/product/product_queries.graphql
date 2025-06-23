@@ -1,3 +1,7 @@
+extend type Query {
+    products: [Product!]! @guard @all(builder: "App\\GraphQL\\Queries\\ProductQuery@getProducts")
+}
+
 type Product {
     id: ID!
     name: String

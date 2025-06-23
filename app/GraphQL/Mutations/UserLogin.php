@@ -12,7 +12,34 @@ final readonly class UserLogin
     public function __invoke(null $_, array $args): array
     {
         $validator = Validator::make($args['input'], [
-            'email' => ['required', 'email', 'exists:users,email'],
+            'dial_code' => ['required'],
+            'phone' => [
+                'required',
+                function ($attribute, $value, $fail) use ($args) {
+                    $dialCode = preg_replace('/\D/', '', $args['input']['dial_code']); // only digits
+                    $phone = $value;
+
+                    // Normalize input phone
+                    $normalizedPhone = preg_replace('/[^0-9]/', '', $phone);
+
+                    // Remove leading 0 or country code
+                    if (str_starts_with($normalizedPhone, '0')) {
+                        $normalizedPhone = substr($normalizedPhone, 1);
+                    } elseif (str_starts_with($normalizedPhone, $dialCode)) {
+                        $normalizedPhone = substr($normalizedPhone, strlen($dialCode));
+                    }
+
+                    // Final normalized value to check: dialCode + normalizedPhone
+                    $finalPhone = $dialCode . $normalizedPhone;
+
+                    // Check existence in DB
+                    $exists = User::whereRaw("CONCAT(dial_code, REPLACE(REPLACE(REPLACE(phone, '+', ''), ' ', ''), '-', '')) = ?", [$finalPhone])->exists();
+
+                    if (!$exists) {
+                        $fail('This phone number is not registered.');
+                    }
+                }
+            ],
             'password' => ['required'],
         ]);
 
@@ -25,7 +52,9 @@ final readonly class UserLogin
             ];
         }
 
-        $user = User::whereEmail($args['input']['email'])->first();
+        $user = User::where('dial_code', $args['input']['dial_code'])
+            ->where('phone', $args['input']['phone'])
+            ->first();
 
         if (!$user) {
             return [
