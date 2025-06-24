@@ -20,8 +20,12 @@ class Highlight extends Model implements HasMedia
         'url',
     ];
 
-    public function getPosition()
+    public function getHighlightMediaUrlAttribute(): ?string
     {
-        return ($this->all()->count())+1;
+        if ($this->hasMedia('highlight_photo')) {
+            return $this->getFirstMediaUrl('highlight_photo');
+        } else {
+            return null;
+        }
     }
 }

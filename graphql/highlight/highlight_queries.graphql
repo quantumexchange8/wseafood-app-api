@@ -1,0 +1,28 @@
+extend type Query {
+    highlights: [Highlight!]! @guard @field(resolver: "App\\GraphQL\\Queries\\HighlightQuery@getHighlights")
+    highlight_content(highlight_id: ID!): HighlightContentResponse @guard @field(resolver: "App\\GraphQL\\Queries\\HighlightQuery@getHighlightContent")
+}
+
+type Highlight {
+    id: ID!
+    title: String
+    content: String
+    position: Int
+    can_popup: Boolean
+    highlight_media_url: String
+}
+
+type HighlightContent {
+    id: ID!
+    title: String
+    content: String
+    position: Int
+    can_popup: Boolean
+    highlight_media_url: String
+}
+
+type HighlightContentResponse {
+    success: Boolean!
+    message: [String!]!
+    content: HighlightContent
+}
