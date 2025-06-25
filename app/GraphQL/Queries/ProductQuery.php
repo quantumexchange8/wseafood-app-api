@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
+use App\Events\ContentViewedEvent;
 use App\Models\Category;
 use App\Models\Product;
 
@@ -48,6 +49,8 @@ final readonly class ProductQuery
                 'detail' => null,
             ];
         }
+
+        event(new ContentViewedEvent($product, 'detail'));
 
         return [
             'success' => true,

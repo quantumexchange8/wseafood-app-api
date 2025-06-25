@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
+use App\Events\ContentViewedEvent;
 use App\Models\Highlight;
 
 final readonly class HighlightQuery
@@ -26,6 +27,8 @@ final readonly class HighlightQuery
                 'content' => null,
             ];
         }
+
+        event(new ContentViewedEvent($highlight, 'highlight'));
 
         return [
             'success' => true,
