@@ -14,3 +14,16 @@ type UserResponse {
     token: String
     user: User
 }
+
+# Point History
+extend type Query {
+    point_history(type: String!): [PointHistory!]! @guard @field(resolver: "App\\GraphQL\\Queries\\PointQuery@getPointHistory")
+}
+
+type PointHistory {
+    id: ID!
+    adjust_type: String
+    earning_point: String
+    remark: String
+    created_at: DateTime!
+}
