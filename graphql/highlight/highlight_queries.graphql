@@ -10,6 +10,7 @@ type Highlight {
     position: Int
     can_popup: Boolean
     highlight_media_url: String
+    created_at: DateTime!
 }
 
 type HighlightContent {
@@ -19,6 +20,7 @@ type HighlightContent {
     position: Int
     can_popup: Boolean
     highlight_media_url: String
+    created_at: DateTime!
 }
 
 type HighlightContentResponse {

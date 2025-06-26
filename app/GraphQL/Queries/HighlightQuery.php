@@ -23,7 +23,7 @@ final readonly class HighlightQuery
         if (!$highlight) {
             return [
                 'success' => false,
-                'message' => ['Highlight not found'],
+                'message' => [trans('public.highlight_not_found')],
                 'content' => null,
             ];
         }
@@ -32,7 +32,7 @@ final readonly class HighlightQuery
 
         return [
             'success' => true,
-            'message' => ['Success fetched highlight'],
+            'message' => [trans('public.successfully_fetched_highlight')],
             'content' => $highlight,
         ];
     }

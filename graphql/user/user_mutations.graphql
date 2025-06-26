@@ -4,6 +4,9 @@ type Mutation {
 
     loginUser(input: LoginUserInput): UserResponse
     @field(resolver: "App\\GraphQL\\Mutations\\UserLogin")
+
+    changeLocale(input: ChangeLocaleInput): UserResponse
+    @field(resolver: "App\\GraphQL\\Mutations\\ChangeLocale")
 }
 
 input RegisterUserInput {
@@ -20,4 +23,8 @@ input LoginUserInput {
     dial_code: String!
     phone: String!
     password: String!
+}
+
+input ChangeLocaleInput {
+    locale: String!
 }

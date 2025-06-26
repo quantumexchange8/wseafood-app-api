@@ -6,6 +6,7 @@ use App\Models\User;
 use GraphQL\Error\Error;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 final readonly class RegisterUser
 {
@@ -38,13 +39,22 @@ final readonly class RegisterUser
                     $exists = User::where('phone_number', $finalPhoneNumber)->exists();
 
                     if ($exists) {
-                        $fail("The phone number $finalPhoneNumber has already been registered.");
+                        $fail(trans('public.phone_registered', [
+                            'number' => $finalPhoneNumber,
+                        ]));
                     }
                 }
             ],
             'email' => ['required', 'email', 'unique:users'],
             'dob' => ['required'],
             'password' => ['required', 'confirmed'],
+        ])->setAttributeNames([
+            'full_name' => trans('public.full_name'),
+            'dial_code' => trans('public.dial_code'),
+            'phone' => trans('public.phone'),
+            'email' => trans('public.email'),
+            'dob' => trans('public.dob'),
+            'password' => trans('public.password'),
         ]);
 
         if ($validator->fails()) {
@@ -85,9 +95,13 @@ final readonly class RegisterUser
             'password' => Hash::make($args['input']['password']),
         ]);
 
+        $id_no = 'MBR' . Str::padLeft($user->id, 5, "0");
+        $user->id_number = $id_no;
+        $user->save();
+
         return [
             'success' => true,
-            'message' => ['User created successfully'],
+            'message' => [trans('public.user_created_successfully')],
             'user' => $user
         ];
     }

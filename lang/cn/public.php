@@ -1,0 +1,21 @@
+<?php
+return [
+    "full_name" => "全名",
+    "dial_code" => "电话区号",
+    "phone" => "电话",
+    "email" => "邮箱",
+    "dob" => "出生日期",
+    "password" => "密码",
+    "confirm_password" => "确认密码",
+    "phone_registered" => "电话号码 :number 已被注册。",
+    "user_created_successfully" => "用户创建成功",
+    "phone_not_registered" => "电话号码 :number 尚未注册。",
+    "user_does_not_exist" => "用户不存在。",
+    "invalid_password_entered" => "输入的密码无效",
+    "login_successfully" => "登录成功",
+    "successfully_changed_language" => "语言切换成功",
+    "highlight_not_found" => "未找到高亮内容",
+    "successfully_fetched_highlight" => "高亮内容获取成功",
+    "menu_item_not_found" => "未找到菜单项",
+    "successfully_fetched_menu_item" => "菜单项获取成功",
+];

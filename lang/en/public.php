@@ -1,0 +1,21 @@
+<?php
+return [
+    "full_name" => "Full Name",
+    "dial_code" => "Phone Code",
+    "phone" => "Phone",
+    "email" => "Email",
+    "dob" => "Date of Birth",
+    "password" => "Password",
+    "confirm_password" => "Confirm Password",
+    "phone_registered" => "The phone number :number has already been registered.",
+    "user_created_successfully" => "User created successfully",
+    "phone_not_registered" => "The phone number :number has not been registered.",
+    "user_does_not_exist" => "The user does not exist.",
+    "invalid_password_entered" => "Invalid password entered",
+    "login_successfully" => "Login successfully",
+    "successfully_changed_language" => "Successfully changed language",
+    "highlight_not_found" => "Highlight not found",
+    "successfully_fetched_highlight" => "Successfully fetched highlight",
+    "menu_item_not_found" => "Menu item not found",
+    "successfully_fetched_menu_item" => "Successfully fetched menu item",
+];

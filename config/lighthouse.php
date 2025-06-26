@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+use App\Http\Middleware\LocalizationMiddleware;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -40,6 +42,8 @@ return [
 
             // Logs every incoming GraphQL query.
             // Nuwave\Lighthouse\Http\Middleware\LogGraphQLQueries::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            LocalizationMiddleware::class,
         ],
 
         /*

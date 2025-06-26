@@ -35,11 +35,17 @@ final readonly class UserLogin
                     $exists = User::where('phone_number', $finalPhoneNumber)->exists();
 
                     if (!$exists) {
-                        $fail("The phone number $finalPhoneNumber has not been registered.");
+                        $fail(trans('public.phone_not_registered', [
+                            'number' => $finalPhoneNumber,
+                        ]));
                     }
                 }
             ],
             'password' => ['required'],
+        ])->setAttributeNames([
+            'dial_code' => trans('public.dial_code'),
+            'phone' => trans('public.phone'),
+            'password' => trans('public.password'),
         ]);
 
         if ($validator->fails()) {
@@ -77,7 +83,7 @@ final readonly class UserLogin
             return [
                 'success' => false,
                 'message' => [
-                    'User does not exist',
+                    trans('public.user_does_not_exist'),
                 ],
                 'token' => null,
                 'user' => null,
@@ -88,7 +94,7 @@ final readonly class UserLogin
             return [
                 'success' => false,
                 'message' => [
-                    'Invalid password entered',
+                    trans('public.invalid_password_entered')
                 ],
                 'token' => null,
                 'user' => null,
@@ -100,7 +106,7 @@ final readonly class UserLogin
         return [
             'success' => true,
             'message' => [
-                'Login successfully',
+                trans('public.login_successfully')
             ],
             'token' => $token,
             'user' => $user,

@@ -45,7 +45,7 @@ final readonly class ProductQuery
         if (!$product) {
             return [
                 'success' => false,
-                'message' => ['Menu item not found'],
+                'message' => [trans('public.menu_item_not_found')],
                 'detail' => null,
             ];
         }
@@ -54,7 +54,7 @@ final readonly class ProductQuery
 
         return [
             'success' => true,
-            'message' => ['Success fetched product'],
+            'message' => [trans('public.successfully_fetched_menu_item')],
             'detail' => $product,
         ];
     }
