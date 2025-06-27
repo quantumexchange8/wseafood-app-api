@@ -18,4 +18,10 @@ return [
     "successfully_fetched_highlight" => "高亮内容获取成功",
     "menu_item_not_found" => "未找到菜单项",
     "successfully_fetched_menu_item" => "菜单项获取成功",
+    "otp_code" => "OTP码",
+    "sent_otp" => "我们已通过电子邮件发送了您的密码重置OTP码！",
+    "send_otp_every_min" => "您可以在 1 分钟后请求新的OTP码。",
+    "otp_expired" => "OTP码已过期",
+    "otp_verified" => "OTP码已验证，请输入您的新密码",
+    "invalid_otp" => "输入的OTP码无效",
 ];
