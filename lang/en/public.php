@@ -18,4 +18,10 @@ return [
     "successfully_fetched_highlight" => "Successfully fetched highlight",
     "menu_item_not_found" => "Menu item not found",
     "successfully_fetched_menu_item" => "Successfully fetched menu item",
+    "otp_code" => "OTP Code",
+    "sent_otp" => "We have emailed your password reset OTP Code!",
+    "send_otp_every_min" => "You can request a new OTP Code after 1 minute.",
+    "otp_expired" => "OTP Code expired",
+    "otp_verified" => "OTP Code verified. Enter your new password",
+    "invalid_otp" => "OTP Code entered in invalid",
 ];

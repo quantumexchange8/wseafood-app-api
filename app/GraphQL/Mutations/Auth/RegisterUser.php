@@ -1,17 +1,21 @@
 <?php declare(strict_types=1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Auth;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rules\Password;
 
-final readonly class UserLogin
+final readonly class RegisterUser
 {
-    /** @param  array{}  $args */
+    /** @param array{} $args
+     */
     public function __invoke(null $_, array $args): array
     {
         $validator = Validator::make($args['input'], [
+            'full_name' => ['required', 'regex:/^[\p{L}\p{N}\p{M}. @]+$/u', 'max:255'],
             'dial_code' => ['required'],
             'phone' => [
                 'required',
@@ -34,17 +38,22 @@ final readonly class UserLogin
 
                     $exists = User::where('phone_number', $finalPhoneNumber)->exists();
 
-                    if (!$exists) {
-                        $fail(trans('public.phone_not_registered', [
+                    if ($exists) {
+                        $fail(trans('public.phone_registered', [
                             'number' => $finalPhoneNumber,
                         ]));
                     }
                 }
             ],
-            'password' => ['required'],
+            'email' => ['required', 'email', 'unique:users'],
+            'dob' => ['required'],
+            'password' => ['required', 'confirmed', Password::min(8)->letters()->numbers()->mixedCase()],
         ])->setAttributeNames([
+            'full_name' => trans('public.full_name'),
             'dial_code' => trans('public.dial_code'),
             'phone' => trans('public.phone'),
+            'email' => trans('public.email'),
+            'dob' => trans('public.dob'),
             'password' => trans('public.password'),
         ]);
 
@@ -52,7 +61,6 @@ final readonly class UserLogin
             return [
                 'success' => false,
                 'message' => $validator->errors()->all(),
-                'token' => null,
                 'user' => null,
             ];
         }
@@ -77,39 +85,24 @@ final readonly class UserLogin
         // Final phone number: dial_code + normalizedPhone
         $finalPhoneNumber = $dialCode . $normalizedPhone;
 
-        $user = User::firstWhere('phone_number', $finalPhoneNumber);
+        $user = User::create([
+            'full_name' => $args['input']['full_name'],
+            'email' => $args['input']['email'],
+            'dial_code' => $args['input']['dial_code'],
+            'phone' => $normalizedPhone,
+            'phone_number' => $finalPhoneNumber,
+            'dob' => $args['input']['dob'],
+            'password' => Hash::make($args['input']['password']),
+        ]);
 
-        if (!$user) {
-            return [
-                'success' => false,
-                'message' => [
-                    trans('public.user_does_not_exist'),
-                ],
-                'token' => null,
-                'user' => null,
-            ];
-        }
-
-        if (!Hash::check($args['input']['password'], $user->password)) {
-            return [
-                'success' => false,
-                'message' => [
-                    trans('public.invalid_password_entered')
-                ],
-                'token' => null,
-                'user' => null,
-            ];
-        }
-
-        $token = $user->createToken('login-token')->plainTextToken;
+        $id_no = 'MBR' . Str::padLeft($user->id, 5, "0");
+        $user->id_number = $id_no;
+        $user->save();
 
         return [
             'success' => true,
-            'message' => [
-                trans('public.login_successfully')
-            ],
-            'token' => $token,
-            'user' => $user,
+            'message' => [trans('public.user_created_successfully')],
+            'user' => $user
         ];
     }
 }

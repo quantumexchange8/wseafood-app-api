@@ -1,9 +1,18 @@
 type Mutation {
     registerUser(input: RegisterUserInput): UserResponse
-    @field(resolver: "App\\GraphQL\\Mutations\\RegisterUser")
+    @field(resolver: "App\\GraphQL\\Mutations\\Auth\\RegisterUser")
 
     loginUser(input: LoginUserInput): UserResponse
-    @field(resolver: "App\\GraphQL\\Mutations\\UserLogin")
+    @field(resolver: "App\\GraphQL\\Mutations\\Auth\\UserLogin")
+
+    sendPasswordResetEmail(input: PasswordResetInput): UserResponse
+    @field(resolver: "App\\GraphQL\\Mutations\\Auth\\ResetPassword@sendPasswordResetEmail")
+
+    verifyPasswordResetEmail(input: OtpVerificationInput): UserResponse
+    @field(resolver: "App\\GraphQL\\Mutations\\Auth\\ResetPassword@verifyPasswordResetEmail")
+
+    updateNewPassword(input: NewPasswordInput): UserResponse
+    @field(resolver: "App\\GraphQL\\Mutations\\Auth\\ResetPassword@updateNewPassword")
 
     changeLocale(input: ChangeLocaleInput): UserResponse
     @field(resolver: "App\\GraphQL\\Mutations\\ChangeLocale")
@@ -25,6 +34,24 @@ input LoginUserInput {
     password: String!
 }
 
+# Forget Password
+input PasswordResetInput {
+    email: String!
+}
+
+input OtpVerificationInput {
+    email: String!
+    otp_code: Int!
+}
+
+input NewPasswordInput {
+    otp_code: Int!
+    email: String!
+    password: String!
+    password_confirmation: String!
+}
+
+# Change Locale
 input ChangeLocaleInput {
     locale: String!
 }

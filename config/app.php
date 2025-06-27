@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'W. Seafood API'),
+    'name' => env('APP_NAME', 'Wondering Seafood'),
 
     /*
     |--------------------------------------------------------------------------
