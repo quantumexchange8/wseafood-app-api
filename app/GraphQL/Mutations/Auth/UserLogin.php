@@ -35,9 +35,7 @@ final readonly class UserLogin
                     $exists = User::where('phone_number', $finalPhoneNumber)->exists();
 
                     if (!$exists) {
-                        $fail(trans('public.phone_not_registered', [
-                            'number' => $finalPhoneNumber,
-                        ]));
+                        $fail(trans('public.invalid_credentials'));
                     }
                 }
             ],
@@ -83,7 +81,7 @@ final readonly class UserLogin
             return [
                 'success' => false,
                 'message' => [
-                    trans('public.user_does_not_exist'),
+                    trans('public.invalid_credentials'),
                 ],
                 'token' => null,
                 'user' => null,
@@ -94,7 +92,7 @@ final readonly class UserLogin
             return [
                 'success' => false,
                 'message' => [
-                    trans('public.invalid_password_entered')
+                    trans('public.invalid_credentials')
                 ],
                 'token' => null,
                 'user' => null,

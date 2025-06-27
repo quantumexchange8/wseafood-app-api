@@ -24,4 +24,5 @@ return [
     "otp_expired" => "OTP Code expired",
     "otp_verified" => "OTP Code verified. Enter your new password",
     "invalid_otp" => "OTP Code entered in invalid",
+    "invalid_credentials" => "Invalid phone number or password",
 ];

@@ -24,4 +24,5 @@ return [
     "otp_expired" => "OTP码已过期",
     "otp_verified" => "OTP码已验证，请输入您的新密码",
     "invalid_otp" => "输入的OTP码无效",
+    "invalid_credentials" => "无效的电话号码或密码",
 ];
