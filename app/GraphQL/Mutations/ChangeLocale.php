@@ -31,4 +31,12 @@ final readonly class ChangeLocale
             'user' => Auth::user(),
         ];
     }
+
+    public function getLocale(): array
+    {
+        return [
+            'success' => true,
+            'locale' => App::getLocale(),
+        ];
+    }
 }

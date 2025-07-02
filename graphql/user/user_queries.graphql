@@ -18,6 +18,8 @@ type UserResponse {
 # Point History
 extend type Query {
     point_history(type: String!): [PointHistory!]! @guard @field(resolver: "App\\GraphQL\\Queries\\PointQuery@getPointHistory")
+
+    get_locale: Locale @field(resolver: "App\\GraphQL\\Mutations\\ChangeLocale@getLocale")
 }
 
 type PointHistory {
@@ -26,4 +28,9 @@ type PointHistory {
     earning_point: String
     remark: String
     created_at: DateTime!
+}
+
+type Locale {
+    success: Boolean!
+    locale: String!
 }
