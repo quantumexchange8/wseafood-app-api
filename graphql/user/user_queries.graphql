@@ -33,6 +33,4 @@ type PointHistory {
 type Locale {
     success: Boolean!
     locale: String!
-    token: String
-    user: User
 }
