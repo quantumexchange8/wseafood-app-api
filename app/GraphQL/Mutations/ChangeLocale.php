@@ -27,7 +27,7 @@ final readonly class ChangeLocale
             'message' => [
                 trans('public.successfully_changed_language')
             ],
-            'token' => Auth::user()?->currentAccessToken()?->plainTextToken,
+            'token' => Auth::user()?->createToken('login-token')->plainTextToken,
             'user' => Auth::user(),
         ];
     }
@@ -37,7 +37,7 @@ final readonly class ChangeLocale
         return [
             'success' => true,
             'locale' => App::getLocale(),
-            'token' => Auth::user()?->currentAccessToken()?->plainTextToken,
+            'token' => Auth::user()?->createToken('login-token')->plainTextToken,
             'user' => Auth::user(),
         ];
     }
