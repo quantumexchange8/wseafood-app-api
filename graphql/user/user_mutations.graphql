@@ -14,7 +14,7 @@ type Mutation {
     updateNewPassword(input: NewPasswordInput): UserResponse
     @field(resolver: "App\\GraphQL\\Mutations\\Auth\\ResetPassword@updateNewPassword")
 
-    changeLocale(input: ChangeLocaleInput): LocaleResponse
+    changeLocale(input: ChangeLocaleInput): UserResponse
     @field(resolver: "App\\GraphQL\\Mutations\\ChangeLocale")
 }
 
@@ -54,9 +54,4 @@ input NewPasswordInput {
 # Change Locale
 input ChangeLocaleInput {
     locale: String!
-}
-
-type LocaleResponse {
-    success: Boolean!
-    message: [String!]!
 }
