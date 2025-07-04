@@ -58,14 +58,4 @@ final readonly class ProductQuery
             'detail' => $product,
         ];
     }
-
-    public function resolveCategoryName(Category $category, array $args)
-    {
-        return $category->getTranslation('name', app()->getLocale());
-    }
-
-    public function resolveProductName(Product $product, array $args)
-    {
-        return $product->getTranslation('name', app()->getLocale());
-    }
 }

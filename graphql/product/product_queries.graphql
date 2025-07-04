@@ -6,7 +6,7 @@ extend type Query {
 
 type Product {
     id: ID!
-    name: String @field(resolver: "App\\GraphQL\\Queries\\ProductQuery@resolveProductName")
+    name: String
     price: Float
     category: Category @belongsTo
     product_media_url: String
@@ -14,7 +14,7 @@ type Product {
 
 type ProductDetail {
     id: ID!
-    name: String @field(resolver: "App\\GraphQL\\Queries\\ProductQuery@resolveProductName")
+    name: String
     price: Float
     category: Category @belongsTo
     product_media_url: String
@@ -22,7 +22,7 @@ type ProductDetail {
 
 type Category {
     id: ID!
-    name: String @field(resolver: "App\\GraphQL\\Queries\\ProductQuery@resolveCategoryName")
+    name: String
     category_media_url: String
 }
 

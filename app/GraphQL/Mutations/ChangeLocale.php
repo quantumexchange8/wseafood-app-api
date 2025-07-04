@@ -27,8 +27,6 @@ final readonly class ChangeLocale
             'message' => [
                 trans('public.successfully_changed_language')
             ],
-            'token' => null,
-            'user' => Auth::user(),
         ];
     }
 
