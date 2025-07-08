@@ -1,5 +1,5 @@
 extend type Query {
-    categories: [Category!]! @guard @all
+    categories: CategoryResponse @guard @field(resolver: "App\\GraphQL\\Queries\\ProductQuery@getCategories")
     products(category_id: ID): ProductsResponse @guard @field(resolver: "App\\GraphQL\\Queries\\ProductQuery@getProducts")
     product_detail(product_id: ID!): ProductDetailResponse @guard @field(resolver: "App\\GraphQL\\Queries\\ProductQuery@getProductDetail")
 }
@@ -24,6 +24,12 @@ type Category {
     id: ID!
     name: String
     category_media_url: String
+}
+
+type CategoryResponse {
+    success: Boolean!
+    message: [String!]!
+    categories: [Category!]!
 }
 
 type ProductsResponse {

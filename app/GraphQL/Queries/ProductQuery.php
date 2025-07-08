@@ -9,18 +9,34 @@ use App\Models\Product;
 final readonly class ProductQuery
 {
     /** @param  array{}  $args */
+    public function getCategories(null $_, array $args): array
+    {
+        $query = Category::with('media')
+            ->where('status', 'active');
+
+        return [
+            'success' => true,
+            'message' => [trans('public.successfully_fetched_categories')],
+            'categories' => $query->get(),
+        ];
+    }
+
+    /** @param  array{}  $args */
     public function getProducts(null $_, array $args): array
     {
-        $query = Product::with(['category', 'media']);
+        $query = Product::with(['category', 'media'])
+            ->where('status', 'active');
 
         if (!empty($args['category_id'])) {
             // Check if category exists
-            $categoryExists = Category::where('id', $args['category_id'])->exists();
+            $categoryExists = Category::where('id', $args['category_id'])
+                ->where('status', 'active')
+                ->exists();
 
             if (!$categoryExists) {
                 return [
                     'success' => false,
-                    'message' => ['Category not found'],
+                    'message' => [trans('public.category_not_found')],
                     'products' => [],
                 ];
             }
@@ -30,7 +46,7 @@ final readonly class ProductQuery
 
         return [
             'success' => true,
-            'message' => ['Success fetched products'],
+            'message' => [trans('public.successfully_fetched_products')],
             'products' => $query->get(),
         ];
     }
@@ -40,6 +56,7 @@ final readonly class ProductQuery
     public function getProductDetail(null $_, array $args): array
     {
         $product = Product::with(['category', 'media'])
+            ->where('status', 'active')
             ->find($args['product_id']);
 
         if (!$product) {

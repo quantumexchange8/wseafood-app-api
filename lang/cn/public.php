@@ -25,4 +25,7 @@ return [
     "otp_verified" => "OTP码已验证，请输入您的新密码",
     "invalid_otp" => "输入的OTP码无效",
     "invalid_credentials" => "无效的电话号码或密码",
+    "category_not_found" => "未找到类别",
+    "successfully_fetched_categories" => "已成功获取类别",
+    "successfully_fetched_products" => "已成功获取菜单",
 ];

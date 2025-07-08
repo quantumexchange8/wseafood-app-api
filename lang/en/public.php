@@ -25,4 +25,7 @@ return [
     "otp_verified" => "OTP Code verified. Enter your new password",
     "invalid_otp" => "OTP Code entered in invalid",
     "invalid_credentials" => "Invalid phone number or password",
+    "category_not_found" => "Category not found",
+    "successfully_fetched_categories" => "Successfully fetched categories",
+    "successfully_fetched_products" => "Successfully fetched menu",
 ];
