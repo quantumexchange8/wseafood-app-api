@@ -18,6 +18,7 @@ type ProductDetail {
     price: Float
     category: Category @belongsTo
     product_media_url: String
+    description: String
 }
 
 type Category {
