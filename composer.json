@@ -16,6 +16,7 @@
         "league/flysystem-aws-s3-v3": "^3.29",
         "mll-lab/laravel-graphiql": "^4.0",
         "nuwave/lighthouse": "^6.58",
+        "opcodesio/log-viewer": "^3.19",
         "spatie/laravel-medialibrary": "^11.13",
         "spatie/laravel-translatable": "^6.11"
     },
