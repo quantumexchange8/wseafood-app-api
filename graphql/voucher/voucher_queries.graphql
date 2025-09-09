@@ -1,0 +1,39 @@
+extend type Query {
+    vouchers: VouchersResponse @guard @field(resolver: "App\\GraphQL\\Queries\\VoucherQuery@getVouchers")
+    voucher_detail(voucher_id: ID!): VoucherDetailResponse @guard @field(resolver: "App\\GraphQL\\Queries\\VoucherQuery@getVoucherDetail")
+}
+
+type Vouchers {
+    id: ID!
+    voucher_name: String
+    description: String
+    discount_rate: Float
+    discount_type: String
+    redeem_point: Float
+    capped_amount: Float
+    voucher_code: String
+    voucher_media_url: String
+    created_at: DateTime!
+}
+
+type VoucherDetail {
+    id: ID!
+    title: String
+    content: String
+    position: Int
+    can_popup: Boolean
+    highlight_media_url: String
+    created_at: DateTime!
+}
+
+type VouchersResponse {
+    success: Boolean!
+    message: [String!]!
+    data: [Vouchers!]!
+}
+
+type VoucherDetailResponse {
+    success: Boolean!
+    message: [String!]!
+    data: VoucherDetail
+}

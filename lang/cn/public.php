@@ -28,4 +28,7 @@ return [
     "category_not_found" => "未找到类别",
     "successfully_fetched_categories" => "已成功获取类别",
     "successfully_fetched_products" => "已成功获取菜单",
+    "voucher_not_found" => "未找到优惠券",
+    "successfully_fetched_vouchers" => "成功获取优惠券",
+    "successfully_fetched_voucher_detail" => "成功获取优惠券详情",
 ];

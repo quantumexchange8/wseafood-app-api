@@ -28,4 +28,7 @@ return [
     "category_not_found" => "Category not found",
     "successfully_fetched_categories" => "Successfully fetched categories",
     "successfully_fetched_products" => "Successfully fetched menu",
+    "voucher_not_found" => "Voucher not found",
+    "successfully_fetched_vouchers" => "Successfully fetched vouchers",
+    "successfully_fetched_voucher_detail" => "Successfully fetched voucher detail",
 ];
