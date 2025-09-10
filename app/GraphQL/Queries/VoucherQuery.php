@@ -3,7 +3,9 @@
 namespace App\GraphQL\Queries;
 
 use App\Enums\VoucherType;
+use App\Models\UserVoucherRedemption;
 use App\Models\Voucher;
+use Auth;
 
 final readonly class VoucherQuery
 {
@@ -45,8 +47,38 @@ final readonly class VoucherQuery
 
         return [
             'success' => true,
-            'message' => [trans('public.successfully_fetched_voucher')],
+            'message' => [trans('public.successfully_fetched_vouchers')],
             'data' => $voucher,
+        ];
+    }
+
+    public function getUserVouchers($_, array $args): array
+    {
+        $user = Auth::user();
+
+        $query = UserVoucherRedemption::with('voucher')
+            ->where('user_id', $user->id);
+
+        if (!empty($args['status'])) {
+            switch (strtolower($args['status'])) {
+                case 'redeemed':
+                    $query->where('status', VoucherType::REDEEMED);
+                    break;
+                case 'expired':
+                    $query->where('status', VoucherType::EXPIRED);
+                    break;
+                case 'used':
+                    $query->where('status', VoucherType::USED);
+                    break;
+            }
+        }
+
+        $vouchers = $query->latest()->get();
+
+        return [
+            'success' => true,
+            'message' => [trans('public.successfully_fetched_vouchers')],
+            'data'    => $vouchers,
         ];
     }
 }

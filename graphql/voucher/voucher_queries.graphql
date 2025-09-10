@@ -1,9 +1,22 @@
+# response interface
+interface BaseResponse {
+    success: Boolean!
+    message: [String!]!
+}
+
+# Queries
 extend type Query {
     vouchers: VouchersResponse @guard @field(resolver: "App\\GraphQL\\Queries\\VoucherQuery@getVouchers")
     voucher_detail(voucher_id: ID!): VoucherDetailResponse @guard @field(resolver: "App\\GraphQL\\Queries\\VoucherQuery@getVoucherDetail")
+
+    # User vouchers (filter by status)
+    user_vouchers(status: String!): UserVouchersResponse
+    @guard
+    @field(resolver: "App\\GraphQL\\Queries\\VoucherQuery@getUserVouchers")
 }
 
-type Vouchers {
+# Entity types
+type Voucher {
     id: ID!
     voucher_name: String
     description: String
@@ -16,28 +29,30 @@ type Vouchers {
     created_at: DateTime!
 }
 
-type VoucherDetail {
+type UserVoucher {
     id: ID!
-    title: String
-    content: String
-    position: Int
-    can_popup: Boolean
-    highlight_media_url: String
-    created_at: DateTime!
+    voucher: Voucher @belongsTo
+    redeemed_at: DateTime
+    expired_at: DateTime
+    used_at: DateTime
+    status: String
 }
 
-type RedemptionDetail {
-    id: ID!
-}
-
-type VouchersResponse {
+# Response types implementing the interface
+type VouchersResponse implements BaseResponse {
     success: Boolean!
     message: [String!]!
-    data: [Vouchers!]!
+    data: [Voucher!]!
 }
 
-type VoucherDetailResponse {
+type VoucherDetailResponse implements BaseResponse {
     success: Boolean!
     message: [String!]!
-    data: VoucherDetail
+    data: Voucher
+}
+
+type UserVouchersResponse implements BaseResponse {
+    success: Boolean!
+    message: [String!]!
+    data: [UserVoucher!]!
 }
