@@ -1,4 +1,4 @@
-type Mutation {
+extend type Mutation {
     registerUser(input: RegisterUserInput): UserResponse
     @field(resolver: "App\\GraphQL\\Mutations\\Auth\\RegisterUser")
 

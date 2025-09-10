@@ -5,7 +5,7 @@ namespace App\Enums;
 enum VoucherType
 {
     // Claim Method
-    const POINT_TO_REDEEM = 'point_to_claim';
+    const POINT_TO_CLAIM = 'point_to_claim';
     const CODE_TO_CLAIM = 'code_to_claim';
     const ADD_FOR_MEMBER = 'add_for_member';
 
@@ -18,4 +18,9 @@ enum VoucherType
     const SPECIFIC_DAY = 'specific_day';
     const SPECIFIC_TIME = 'specific_time';
     const SPECIFIC_DAY_TIME = 'specific_day_time';
+
+    // Redemption Type
+    const REDEEMED = 'redeemed';
+    const EXPIRED = 'expired';
+    const USED = 'used';
 }

@@ -31,4 +31,7 @@ return [
     "voucher_not_found" => "Voucher not found",
     "successfully_fetched_vouchers" => "Successfully fetched vouchers",
     "successfully_fetched_voucher_detail" => "Successfully fetched voucher detail",
+    "successfully_redeemed_voucher" => "Successfully redeemed voucher",
+    "voucher" => "Voucher",
+    "insufficient_point" => "Not enough points to redeem this voucher."
 ];

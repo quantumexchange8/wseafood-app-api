@@ -12,7 +12,7 @@ final readonly class VoucherQuery
     {
         $vouchers = Voucher::with('media')
             ->where([
-                'claim_method' => VoucherType::POINT_TO_REDEEM,
+                'claim_method' => VoucherType::POINT_TO_CLAIM,
                 'status' => 'active',
             ])
             ->orderBy('redeem_point')

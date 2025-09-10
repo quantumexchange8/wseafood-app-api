@@ -31,4 +31,7 @@ return [
     "voucher_not_found" => "未找到优惠券",
     "successfully_fetched_vouchers" => "成功获取优惠券",
     "successfully_fetched_voucher_detail" => "成功获取优惠券详情",
+    "successfully_redeemed_voucher" => "成功兑换优惠券",
+    "voucher" => "优惠券",
+    "insufficient_point" => "积分不足，无法兑换此优惠券。"
 ];

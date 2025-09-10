@@ -26,6 +26,10 @@ type VoucherDetail {
     created_at: DateTime!
 }
 
+type RedemptionDetail {
+    id: ID!
+}
+
 type VouchersResponse {
     success: Boolean!
     message: [String!]!

@@ -3,12 +3,15 @@
 #import product/product_queries.graphql
 #import highlight/highlight_queries.graphql
 #import voucher/voucher_queries.graphql
+#import voucher/voucher_mutations.graphql
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 type Query {
     me: User! @guard @auth
     country: [Country!]! @all
 }
+
+type Mutation
 
 type Country {
     id: ID!

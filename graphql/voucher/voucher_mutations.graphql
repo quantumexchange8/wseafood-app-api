@@ -1,0 +1,13 @@
+extend type Mutation {
+    redeemVoucher(input: RedeemVoucherInput): RedeemedResponse
+    @field(resolver: "App\\GraphQL\\Mutations\\VoucherMutation")
+}
+
+input RedeemVoucherInput {
+    voucher_id: Int!
+}
+
+type RedeemedResponse {
+    success: Boolean!
+    message: [String!]!
+}
