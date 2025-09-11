@@ -26,6 +26,11 @@ class Voucher extends Model implements HasMedia
         return $this->hasMany(VoucherValidity::class);
     }
 
+    public function redemptions(): HasMany
+    {
+        return $this->hasMany(UserVoucherRedemption::class);
+    }
+
     public function getVoucherMediaUrlAttribute(): ?string
     {
         if ($this->hasMedia('voucher_thumbnail')) {

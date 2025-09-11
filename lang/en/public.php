@@ -33,5 +33,7 @@ return [
     "successfully_fetched_voucher_detail" => "Successfully fetched voucher detail",
     "successfully_redeemed_voucher" => "Successfully redeemed voucher",
     "voucher" => "Voucher",
-    "insufficient_point" => "Not enough points to redeem this voucher."
+    "insufficient_point" => "Not enough points to redeem this voucher.",
+    "voucher_limit_reached" => "Voucher limit reached.",
+    "voucher_member_limit_reached" => "You have reached the redemption limit.",
 ];

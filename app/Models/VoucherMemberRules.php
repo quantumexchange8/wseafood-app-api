@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class VoucherMemberRules extends Model
@@ -22,5 +23,10 @@ class VoucherMemberRules extends Model
         return [
             'special_holiday_date' => 'date',
         ];
+    }
+
+    public function voucher(): BelongsTo
+    {
+        return $this->belongsTo(Voucher::class);
     }
 }

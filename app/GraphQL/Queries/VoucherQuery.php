@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Enums\VoucherType;
+use App\Events\ContentViewedEvent;
 use App\Models\UserVoucherRedemption;
 use App\Models\Voucher;
 use Auth;
@@ -43,7 +44,7 @@ final readonly class VoucherQuery
             ];
         }
 
-//        event(new ContentViewedEvent($voucher, 'detail'));
+        event(new ContentViewedEvent($voucher, 'detail'));
 
         return [
             'success' => true,

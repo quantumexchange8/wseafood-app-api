@@ -2,15 +2,20 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
+use App\Enums\VoucherType;
 use App\Models\User;
+use App\Models\VoucherMemberRules;
+use App\Services\VoucherRedemptionService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
+use Throwable;
 
 final readonly class RegisterUser
 {
     /** @param array{} $args
+     * @throws Throwable
      */
     public function __invoke(null $_, array $args): array
     {
@@ -98,6 +103,18 @@ final readonly class RegisterUser
         $id_no = 'MBR' . Str::padLeft($user->id, 5, "0");
         $user->id_number = $id_no;
         $user->save();
+
+        // Distribute voucher
+        $available_vouchers = VoucherMemberRules::with('voucher')
+            ->where('activation_rule', VoucherType::FIRST_TIME_REGISTRATION)
+            ->get();
+
+        $service = app(VoucherRedemptionService::class);
+
+        foreach ($available_vouchers as $available_voucher) {
+            $voucher = $available_voucher->voucher;
+            $service->redeem($user, $voucher);
+        }
 
         return [
             'success' => true,

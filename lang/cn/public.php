@@ -33,5 +33,7 @@ return [
     "successfully_fetched_voucher_detail" => "成功获取优惠券详情",
     "successfully_redeemed_voucher" => "成功兑换优惠券",
     "voucher" => "优惠券",
-    "insufficient_point" => "积分不足，无法兑换此优惠券。"
+    "insufficient_point" => "积分不足，无法兑换此优惠券。",
+    "voucher_limit_reached" => "已达到优惠券限额。",
+    "voucher_member_limit_reached" => "您已达到兑换限额。",
 ];
