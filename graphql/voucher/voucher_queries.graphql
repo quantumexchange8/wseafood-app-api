@@ -26,6 +26,7 @@ type Voucher {
     capped_amount: Float
     voucher_code: String
     voucher_media_url: String
+    voucher_highlight: String
     created_at: DateTime!
 }
 
